@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-do List</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <div class="container">
+    <h1>Enhanced To-Do List</h1>
+    <div class="input-container">
+      <div class="input-group">
+        <input type="text" id="task-input" placeholder="Add a new task...">
+      </div>
+      <div class="input-group">
+        <select id="category-select">
+          <option value="work">Work</option>
+          <option value="personal">Personal</option>
+          <option value="health">Health</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <input type="date" id="due-date">
+      </div>
+      <button id="add-task-btn">Add Task</button>
+    </div>
+    <div class="filter-container">
+      <select id="filter-category">
+        <option value="all">All Categories</option>
+        <option value="work">Work</option>
+        <option value="personal">Personal</option>
+        <option value="health">Health</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <table id="task-table" style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding: 8px;">Task</th>
+          <th style="text-align:left; padding: 8px;">Due Date</th>
+          <th style="text-align:left; padding: 8px;">Category</th>
+          <th style="text-align:left; padding: 8px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="task-list"></tbody>
+    </table>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
