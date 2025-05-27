@@ -10,10 +10,9 @@
 <body>
   <div class="container">
     <h1>Enhanced To-Do List</h1>
+
     <div class="input-container">
-      <div class="input-group">
-        <input type="text" id="task-input" placeholder="Enter task..." />
-      </div>
+      <div class="input-group"><input type="text" id="task-input" placeholder="Enter task..." /></div>
       <div class="input-group">
         <select id="category-select">
           <option value="work">Work</option>
@@ -22,15 +21,29 @@
           <option value="other">Other</option>
         </select>
       </div>
-      <div class="input-group">
-        <input type="date" id="due-date" />
-      </div>
+      <div class="input-group"><input type="date" id="due-date" /></div>
       <button id="add-task-btn">Add Task</button>
+    </div>
+
+    <div class="filter-container">
+      <div class="input-group">
+        <select id="filter-category">
+          <option value="all">All Categories</option>
+          <option value="work">Work</option>
+          <option value="personal">Personal</option>
+          <option value="health">Health</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <input type="text" id="search-task" placeholder="Search tasks...">
+      </div>
     </div>
 
     <table>
       <thead>
         <tr>
+          <th>Done</th>
           <th>Task</th>
           <th>Due Date</th>
           <th>Category</th>
@@ -42,9 +55,6 @@
   </div>
 
   <div id="toast" class="toast"></div>
-
-
-  
   <script src="script.js"></script>
 </body>
 </html>

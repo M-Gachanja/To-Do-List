@@ -5,10 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const addTaskBtn = document.getElementById("add-task-btn");
   const taskTbody = document.getElementById("task-tbody");
   const toast = document.getElementById("toast");
+  const filterCategory = document.getElementById("filter-category");
+  const searchTask = document.getElementById("search-task");
 
   dueDateInput.valueAsDate = new Date();
 
   addTaskBtn.addEventListener("click", addTask);
+  filterCategory.addEventListener("change", loadTasks);
+  searchTask.addEventListener("input", loadTasks);
 
   function showToast(message, type = "success") {
     toast.textContent = message;
@@ -21,23 +25,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const category = categorySelect.value;
     const dueDate = dueDateInput.value;
 
-    if (!text) {
-      showToast("Please enter a task.", "error");
-      return;
-    }
+    if (!text) return showToast("Please enter a task.", "error");
 
     const task = {
       id: Date.now(),
       text,
       category,
       dueDate,
+      completed: false,
     };
 
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks.push(task);
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
-    renderTask(task);
+    loadTasks();
     taskInput.value = "";
     showToast("Task added!", "success");
   }
@@ -50,16 +52,16 @@ document.addEventListener("DOMContentLoaded", () => {
     today.setHours(0, 0, 0, 0);
     const diff = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
 
-    if (diff < 0) row.className = "urgent";
-    else if (diff <= 2) row.className = "upcoming";
-    else row.className = "normal";
+    row.className = task.completed ? "completed" : diff < 0 ? "urgent" : diff <= 2 ? "upcoming" : "normal";
 
     row.innerHTML = `
+      <td><input type="checkbox" ${task.completed ? "checked" : ""} onchange="toggleComplete(${task.id})"></td>
       <td>${task.text}</td>
       <td>${formatDueDate(task.dueDate, diff)}</td>
       <td>${capitalize(task.category)}</td>
       <td><button onclick="deleteTask(${task.id})">Delete</button></td>
     `;
+
     taskTbody.appendChild(row);
   }
 
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-  function deleteTask(id) {
+  window.deleteTask = function(id) {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks = tasks.filter((t) => t.id !== id);
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -85,12 +87,26 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast("Task deleted", "error");
   }
 
-  window.deleteTask = deleteTask;
+  window.toggleComplete = function(id) {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const task = tasks.find((t) => t.id === id);
+    if (task) {
+      task.completed = !task.completed;
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      loadTasks();
+    }
+  }
 
   function loadTasks() {
-    taskTbody.innerHTML = "";
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.forEach(renderTask);
+    const filter = filterCategory.value;
+    const search = searchTask.value.toLowerCase();
+
+    taskTbody.innerHTML = "";
+    tasks.filter(t =>
+      (filter === "all" || t.category === filter) &&
+      t.text.toLowerCase().includes(search)
+    ).forEach(renderTask);
   }
 
   loadTasks();
