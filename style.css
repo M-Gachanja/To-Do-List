@@ -15,6 +15,9 @@ body {
 }
 h1 {
   text-align: center;
+  background-color: #4CAF50;
+  height: 10vh;
+
 }
 .input-container, .filter-container {
   display: flex;
@@ -22,6 +25,8 @@ h1 {
   gap: 10px;
   margin-bottom: 20px;
 }
+
+
 .input-group {
   flex: 1;
   min-width: 150px;
@@ -30,7 +35,16 @@ input, select {
   width: 100%;
   padding: 8px;
   font-size: 16px;
+  border-radius: 30px;
+  
 }
+#category-select{
+  width: 160px;
+  margin-left: 40px;
+  border-radius: 30px;
+}
+
+
 button {
   padding: 10px;
   font-size: 16px;
@@ -39,6 +53,10 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+}
+#add-task-btn{
+  margin-left: 20px;
 }
 button:hover {
   background: #45a049;
@@ -52,9 +70,9 @@ th, td {
   border-bottom: 1px solid #ddd;
   text-align: left;
 }
-tr.urgent { background-color: #f8d7da; }
+tr.urgent { background-color: #ce2e3c; }
 tr.upcoming { background-color: #fff3cd; }
-tr.normal { background-color: #d4edda; }
+tr.normal { background-color: #4CAF50; }
 tr.completed { text-decoration: line-through; color: #888; }
 .toast {
   position: fixed;

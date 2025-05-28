@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <td>${task.text}</td>
       <td>${formatDueDate(task.dueDate, diff)}</td>
       <td>${capitalize(task.category)}</td>
-      <td><button onclick="deleteTask(${task.id})">Delete</button></td>
+      <td><button onclick="deleteTask(${task.id})" style="background-color: grey; color: white; border: none; padding: 6px 12px; border-radius: 4px;">Delete</button></td>
     `;
 
     taskTbody.appendChild(row);
