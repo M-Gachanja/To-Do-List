@@ -80,6 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.deleteTask = function(id) {
+    const confirmed = confirm("Are you sure you want to delete this task?");
+    if (!confirmed) return;
+    
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks = tasks.filter((t) => t.id !== id);
     localStorage.setItem("tasks", JSON.stringify(tasks));
